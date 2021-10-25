@@ -1,0 +1,4 @@
+flask
+cherrypy
+opencv-python
+BeautifulSoup4
