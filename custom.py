@@ -42,7 +42,8 @@ import imgaug
 import cv2
 import matplotlib.pyplot as plt
 from timeit import default_timer as timer
-
+from PIL import Image
+import imageio
 # !pip install tensorflow==2.3.0
 # !pip install keras==2.4
 # !pip install tensorflow-gpu==2.3.0
@@ -314,7 +315,13 @@ def detect_and_color_splash(weights_path, image_path=None, video_path=None):
     if image_path:
         print("Running on {}".format(image_path))
         # Read image
+        #1. 이미지 저장후 링크형식 보내기
         image = skimage.io.imread(image_path)
+        #2. 이미지 저장없이 변수로 보내기
+        # tmp = Image.open(image_path)
+        # img2 = np.array(tmp)
+        # image = imageio.core.util.Array(img2)
+        #####
         # Detect objects
 
         # parser = argparse.ArgumentParser(
@@ -326,15 +333,17 @@ def detect_and_color_splash(weights_path, image_path=None, video_path=None):
         r = model.detect([image], verbose=1)[0]
         # Color splash
         # print(r)
+
         class_named = ['','capsule','circle','diamond','ellipse','hexagon','octagon','pentagon','square','triangle']
-        splash = color_splash(image, r['masks'])
+        # splash = color_splash(image, r['masks'])
         splash22 = visualize.display_instances(image, r['rois'],r['masks'],r['class_ids'],class_named)
+
         # Save output
-        file_name = "splash_{:%Y%m%dT%H%M%S}.png".format(datetime.datetime.now())
+        # file_name = "splash_{:%Y%m%dT%H%M%S}.png".format(datetime.datetime.now())
         file_name2 = "splash22_{:%Y%m%dT%H%M%S}.png".format(datetime.datetime.now())
         # skimage.io.imsave(file_name, splash)
         skimage.io.imsave(file_name2, splash22)
-        print("Saved to ", file_name)
+        print("Saved to ", file_name2)
         return r
     elif video_path:
         import cv2
