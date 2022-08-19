@@ -48,7 +48,7 @@ from timeit import default_timer as timer
 # !pip install tensorflow-gpu==2.3.0
 
 # python custom.py splash --weights=logs\mask_rcnn_experiment_0096.h5 --image=KakaoTalk_20210927_204431533_19.jpg
-
+####
 
 # Root directory of the project
 ROOT_DIR = os.path.abspath("C:/Users/user/PycharmProjects/maskrcnn-custom")
